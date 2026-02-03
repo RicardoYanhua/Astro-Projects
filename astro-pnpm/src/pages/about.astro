@@ -148,7 +148,7 @@ import Layout from '../layouts/Layout.astro';
     gsap.registerPlugin(ScrollTrigger);
 
     // Animación de fade-in y slide-up para las tarjetas
-    gsap.utils.toArray('.card').forEach((card, index) => {
+    gsap.utils.toArray<HTMLElement>('.card').forEach((card) => {
         gsap.fromTo(
             card,
             {
@@ -159,7 +159,6 @@ import Layout from '../layouts/Layout.astro';
                 opacity: 1,
                 y: 0,
                 duration: 0.8,
-                delay: index * 0.2,
                 scrollTrigger: {
                     trigger: card,
                     start: 'top 80%',
