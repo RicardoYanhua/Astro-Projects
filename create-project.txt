@@ -1,1 +1,2 @@
 pnpm create astro@latest
+pnpm add gsap

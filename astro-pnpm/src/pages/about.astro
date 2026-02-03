@@ -1,0 +1,228 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About">
+    <div class="about-container">
+        <section class="hero-section">
+            <h1 class="title">Acerca de Nosotros</h1>
+            <p class="subtitle">Descubre nuestra historia</p>
+        </section>
+
+        <section class="content-section">
+            <div class="card">
+                <h2>Nuestra Misión</h2>
+                <p>Crear experiencias web increíbles con animaciones suaves y modernas.</p>
+            </div>
+
+            <div class="card">
+                <h2>Nuestra Visión</h2>
+                <p>Ser líderes en tecnología y diseño web interactivo.</p>
+            </div>
+
+            <div class="card">
+                <h2>Nuestros Valores</h2>
+                <p>Innovación, calidad y excelencia en cada proyecto.</p>
+            </div>
+        </section>
+
+        <section class="parallax-section">
+            <div class="parallax-content">
+                <h2>Sección Parallax</h2>
+                <p>Esta sección se mueve con el scroll</p>
+            </div>
+        </section>
+
+        <div class="nav-link">
+            <a href="/">← Volver a inicio</a>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .about-container {
+        min-height: 300vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .hero-section {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .title {
+        font-size: 4rem;
+        margin: 0;
+        font-weight: 900;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        opacity: 0.9;
+    }
+
+    .content-section {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        padding: 4rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .card h2 {
+        font-size: 2rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .card p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .parallax-section {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        padding: 2rem;
+    }
+
+    .parallax-content {
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    .parallax-content h2 {
+        font-size: 3rem;
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    .nav-link {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .nav-link a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+        border: 2px solid white;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .nav-link a:hover {
+        background: white;
+        color: #667eea;
+    }
+</style>
+
+<script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animación de fade-in y slide-up para las tarjetas
+    gsap.utils.toArray('.card').forEach((card, index) => {
+        gsap.fromTo(
+            card,
+            {
+                opacity: 0,
+                y: 100,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                    markers: false,
+                },
+            }
+        );
+    });
+
+    // Animación parallax para la sección parallax
+    gsap.to('.parallax-content', {
+        scrollTrigger: {
+            trigger: '.parallax-section',
+            start: 'top center',
+            end: 'bottom center',
+            scrub: 1,
+            markers: false,
+        },
+        y: 100,
+        opacity: 0.7,
+    });
+
+    // Animación de escala al hacer scroll
+    gsap.to('.parallax-section', {
+        scrollTrigger: {
+            trigger: '.parallax-section',
+            start: 'top center',
+            end: 'bottom center',
+            scrub: 0.5,
+        },
+        scale: 0.95,
+        duration: 1,
+    });
+
+    // Animación del título hero
+    gsap.fromTo(
+        '.title',
+        {
+            opacity: 0,
+            scale: 0.8,
+        },
+        {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            ease: 'back.out',
+        }
+    );
+
+    gsap.fromTo(
+        '.subtitle',
+        {
+            opacity: 0,
+            y: 20,
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.3,
+            ease: 'power2.out',
+        }
+    );
+</script>
