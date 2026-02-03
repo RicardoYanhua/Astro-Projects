@@ -1,1 +1,1 @@
-npm create astro@latest
+pnpm create astro@latest
